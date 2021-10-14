@@ -6,11 +6,11 @@ function SignUp() {
       
           <div className="form-floating">
             <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"/>
-            <label for="floatingInput">Adresse mail</label>
+            <label htmlFor="floatingInput">Adresse mail</label>
           </div>
-          <div class="form-floating">
+          <div className="form-floating">
             <input type="password" className="form-control" id="floatingPassword" placeholder="Password"/>
-            <label for="floatingPassword">Mot de passe</label>
+            <label htmlFor="floatingPassword">Mot de passe</label>
           </div>
           <button className="w-100 btn btn-lg btn-primary" type="submit">Créez votre compte</button>
         </form>
