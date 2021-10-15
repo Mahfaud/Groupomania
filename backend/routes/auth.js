@@ -6,7 +6,7 @@ const authControllers = require("../controllers/auth")
 router.post("/signup", authControllers.signUp);
 
 // Route POST pour la connexion à un compte
-router.post("/login", authControllers.logIn)
+router.post("/", authControllers.logIn)
 
 
 module.exports = router;

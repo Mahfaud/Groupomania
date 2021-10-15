@@ -3,6 +3,23 @@ const app = express()
 const dotenv = require("dotenv").config()
 const path = require('path');
 const authRoute = require("./routes/auth")
+const mysql = require("mysql")
+
+// Configuration de la base de donnée
+ const db = mysql.createConnection({
+  host : "localhost",
+  user : "root" ,
+  password : process.env.DB_PASSWORD ,
+  database : "groupomania"
+})
+
+// Connexion a la base de donnée
+db.connect((err) => {
+  if (err) {
+    throw err;
+  }
+  console.log("Database ON")
+})
 
 // Middlewares
 app.use(express.urlencoded({ extended: true }))
