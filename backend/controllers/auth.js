@@ -24,7 +24,7 @@ exports.signUp = async (req, res) => {
             const salt = await bcrypt.genSalt(10)
             const hashPassword = await bcrypt.hash(req.body.password, salt)
 
-            db.query("INSERT INTO users VALUES(? , ?, ?)", [1, req.body.email, hashPassword], (err, result)=> {
+            db.query("INSERT INTO users VALUES(? , ?, ?, ?, ?, ?, ?)", [1, req.body.email, hashPassword, req.body.name, req.body.firstName, req.body.age, req.body.address], (err, result)=> {
                 if (err) {
                 console.log("Error")
                 }

@@ -3,6 +3,7 @@ const app = express()
 const dotenv = require("dotenv").config()
 const path = require('path');
 const authRoute = require("./routes/auth")
+const profilRoute = require("./routes/profil")
 const mysql = require("mysql")
 
 // Configuration de la base de donnée
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
 
 // Authentifications Routes
 app.use("/", authRoute)
+app.use("/", profilRoute)
 
 // Application qui écoute au port 8000
 app.listen(8000)
