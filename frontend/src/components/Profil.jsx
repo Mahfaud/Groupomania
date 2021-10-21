@@ -17,11 +17,12 @@ function Profil() {
     const [firstName, setFirstName] = useState("")
     const [age, setAge] = useState("")
     const [address, setAddress] = useState("")
-
+    var url = window.location.pathname;
+    var id = url.substring(url.lastIndexOf('/') + 1);
 
     const deleteProfil = async (e) => {
         e.preventDefault()
-        fetch('http://localhost:8000/profil', {
+        fetch('http://localhost:8000/profil/' + id , {
         method: 'DELETE',}).then((res) => console.log(res))}
 
     const submit = async (e) => {
@@ -38,7 +39,7 @@ function Profil() {
             age: age,
             address: address
           }
-          fetch("http://localhost:8000/profil", {
+          fetch("http://localhost:8000/profil/" + id, {
               method: "PUT",
               body: JSON.stringify(userData),
               headers: {"Content-Type" : "application/json"}

@@ -9,7 +9,7 @@ const mysql = require("mysql")
 })
 
 exports.getProfil = (req, res) => {
-    db.query("SELECT * FROM users WHERE user_id = 1", (err, result) => {
+    db.query("SELECT * FROM users WHERE user_id = (?)", [req.params.id], (err, result) => {
         if (err) {
             throw err
         }
@@ -18,7 +18,7 @@ exports.getProfil = (req, res) => {
 }
 
 exports.updateProfil = (req, res) => {
-    db.query("UPDATE users SET email = (?), name = (?), firstName = (?), age = (?), address = (?) WHERE user_id = 1", [req.body.email, req.body.name, req.body.firstName, req.body.age, req.body.address],(err, result) => {
+    db.query("UPDATE users SET email = (?), name = (?), firstName = (?), age = (?), address = (?) WHERE user_id = (?)", [req.body.email, req.body.name, req.body.firstName, req.body.age, req.body.address, req.params.id],(err, result) => {
         if (err) {
             throw err
         }
@@ -27,7 +27,7 @@ exports.updateProfil = (req, res) => {
 }
 
 exports.deleteProfil = (req, res) => {
-    db.query("DELETE users FROM users WHERE user_id = 1", (err, result) => {
+    db.query("DELETE users FROM users WHERE user_id = (?)", [req.params.id], (err, result) => {
         if (err) {
             throw err
         }

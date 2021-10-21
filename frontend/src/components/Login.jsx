@@ -31,7 +31,7 @@ function LogIn() {
         .then((res) => (res.json()))
         .then((data) => {
           console.log(data)
-          window.location.href = "http://localhost:3000/profil"
+          window.location.href = "http://localhost:3000/profil/" + data.userId
         })
 
       } else {
