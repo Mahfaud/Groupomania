@@ -51,7 +51,7 @@ function Profil() {
       }
 
     return (
-        <div className="form-signin container">
+        <div className="form-signin profilContainer">
         <form>
           <h1 className="h3 mb-3 fw-normal">Modifiez votre compte</h1>
       

@@ -18,6 +18,7 @@ exports.getProfil = (req, res) => {
 }
 
 exports.updateProfil = (req, res) => {
+    console.log(req.headers)
     db.query("UPDATE users SET email = (?), name = (?), firstName = (?), age = (?), address = (?) WHERE user_id = (?)", [req.body.email, req.body.name, req.body.firstName, req.body.age, req.body.address, req.params.id],(err, result) => {
         if (err) {
             throw err

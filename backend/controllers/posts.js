@@ -10,7 +10,7 @@ const mysql = require("mysql")
 
 
 exports.createPost = async (req, res) => {
-    db.query("INSERT INTO posts VALUES( (?), (?), (?))", [null, req.body.text, "http://localhost:8000" + req.file.path], async (err, result) => {
+    db.query("INSERT INTO posts VALUES( (?), (?), (?))", [null, req.body.text, "http://localhost:8000/" + req.file.path], async (err, result) => {
         if (err) {
             throw err
         }
@@ -19,6 +19,7 @@ exports.createPost = async (req, res) => {
 }
 
 exports.getAllPosts = async (req, res) => {
+    console.log(req.headers)
     await db.query("SELECT * FROM posts", [], async (err, result) => {
         if (err) {
             throw err

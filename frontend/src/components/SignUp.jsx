@@ -13,6 +13,7 @@ function SignUp() {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [username, setUsername] = useState("")
   const [name, setName] = useState("")
   const [firstName, setFirstName] = useState("")
   const [age, setAge] = useState("")
@@ -29,6 +30,7 @@ function SignUp() {
         const userData = {
           email : email,
           password: password,
+          username: username,
           name : name,
           firstName: firstName,
           age: age,
@@ -47,7 +49,7 @@ function SignUp() {
 
 
     return (
-        <div className="form-signin container">
+        <div className="form-signin signupContainer">
         <form>
           <h1 className="h3 mb-3 fw-normal">Créez votre compte</h1>
       
@@ -58,6 +60,10 @@ function SignUp() {
           <div className="form-floating">
             <input type="password" className="form-control" id="floatingPassword" placeholder="Password" onChange={e => setPassword(e.target.value)} />
             <label htmlFor="floatingPassword">Mot de passe</label>
+          </div>
+          <div className="form-floating">
+            <input type="text" className="form-control" id="floatingPassword" placeholder="Username" onChange={e => setUsername(e.target.value)} />
+            <label htmlFor="Username">Username</label>
           </div>
           <div className="form-floating">
             <input type="text" className="form-control" id="Name" placeholder="Name" onChange={e => setName(e.target.value)} />
@@ -75,7 +81,8 @@ function SignUp() {
             <input type="text" className="form-control" id="Address" placeholder="Address" onChange={e => setAddress(e.target.value)} />
             <label htmlFor="Address">Address</label>
           </div>
-          <button className="w-100 btn btn-lg btn-primary" type="submit"  onClick={submit} >Créez votre compte</button>
+          <button className="btn btn-lg btn-primary" type="submit"  onClick={submit} >Créez votre compte</button>
+          <a href="/"> Déja inscrit(e) ? Connectez-vous ici !</a>
         </form>
       </div>
     );

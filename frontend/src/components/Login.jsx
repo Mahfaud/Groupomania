@@ -31,6 +31,8 @@ function LogIn() {
         .then((res) => (res.json()))
         .then((data) => {
           console.log(data)
+          localStorage.setItem("token", data.token)
+          
           window.location.href = "http://localhost:3000/profil/" + data.userId
         })
 
@@ -40,20 +42,25 @@ function LogIn() {
     }
 
     return (
-        <div className="form-signin container">
+      <div className="loginContainer">
+        <div className="logContainer" id="A">
+          
+        </div>
+        <div className="form-signin logContainer">
         <form>
-          <h1 className="h3 mb-3 fw-normal">Connectez-vous !</h1>
-      
+          <h1 className="h4 mb-3 fw-normal text-center">Connectez-vous !</h1>
           <div className="form-floating">
-            <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" onChange={e => setEmail(e.target.value)}/>
-            <label htmlFor="floatingInput">Adresse mail</label>
-          </div>
-          <div className="form-floating">
-            <input type="password" className="form-control" id="floatingPassword" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
-            <label htmlFor="floatingPassword">Mot de passe</label>
-          </div>
-          <button className="w-100 btn btn-lg btn-primary" type="submit" onClick={submit}>Se connecter</button>
-        </form>
+              <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" onChange={e => setEmail(e.target.value)}/>
+              <label htmlFor="floatingInput">Adresse mail</label>
+            </div>
+            <div className="form-floating">
+              <input type="password" className="form-control" id="floatingPassword" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
+              <label htmlFor="floatingPassword">Mot de passe</label>
+            </div>
+            <button className="w-100 btn btn-lg btn-primary" type="submit" onClick={submit}>Se connecter</button>
+            <a href="/signup"> Pas encore de compte ? Inscrivez-vous !</a>
+          </form>
+        </div>
       </div>
     );
   }

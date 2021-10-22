@@ -1,19 +1,31 @@
 import React, { useState, useEffect } from "react";
+import Header from "../components/Header"
+const tokenHeader = new Headers
+const localToken = localStorage.getItem("token")
+tokenHeader.append("authorization", "Bearer " + localToken)
 
 
 function GetPosts() {
-
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:8000/forum")
+        fetch("http://localhost:8000/forum", {
+            headers: tokenHeader
+        })
         .then((res) => {return res.json()})
         .then((data => setPosts(data)))
     }, [])
 
     return (
-        <div>
-            <div> {posts.map(post => <div>{post.post_id + " " + post.text + " " + post.fileUrl}</div>)}</div>
+        <div className="allContainer">
+            <div className="allPostContainer"> {posts.map(post => 
+                <a className="postContainer"><img className="postImg" src={post.fileUrl}/>
+                    <div className="postText">
+                        <h2 className="postTitle">{post.post_id}</h2>
+                        <p className="postParagraph">{post.text}</p>
+                    </div>
+                </a>)}
+            </div>
         </div>
     )
 }
@@ -32,17 +44,17 @@ function CreatePost() {
 
         fetch("http://localhost:8000/forum", {
             method: "POST",
+            headers: tokenHeader,
             body: form
         })
     }
 
     return (
-        <form>
-            <div className="form-group">
-                <label className="form-check-label" htmlFor="textPost">Quoi de neuf ? </label>
-                <textarea className="form-control" name="textPost" rows="3" maxLength="1000" onChange={e => setText(e.target.value)}></textarea>
-                <input type="file" name="file" onChange={e => setFile(e.target.files[0])}></input>
-                <button className="w-100 btn btn-lg btn-primary" type="submit" onClick={submit} >Créer</button>
+        <form id="postForm">
+            <div className="form-group" id="postFormGroup">
+                <textarea placeholder="Quoi de neuf ?" className="form-control" name="textPost" rows="3" maxLength="1000" id ="textPost" onChange={e => setText(e.target.value)}></textarea>
+                <input type="file" name="file" id="file" onChange={e => setFile(e.target.files[0])}></input>
+                <button className="btn btn-lg btn-primary" id="postBtn" type="submit" onClick={submit} >Créer</button>
             </div>
         </form>
     )
@@ -50,9 +62,12 @@ function CreatePost() {
 
 function Forum () {
     return (
-        <div className="container">
+        <div>
+            <Header></Header>
+            <div className="forumContainer">
             <CreatePost></CreatePost>
             <GetPosts></GetPosts>
+        </div>
         </div>
     )
 }
