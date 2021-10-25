@@ -19,7 +19,7 @@ function GetPosts() {
     return (
         <div className="allContainer">
             <div className="allPostContainer"> {posts.map(post => 
-                <a className="postContainer"><img className="postImg" src={post.fileUrl}/>
+                <a className="postContainer" href={"/forum/post/" + post.post_id}><img className="postImg" src={post.fileUrl}/>
                     <div className="postText">
                         <h2 className="postTitle">{post.post_id}</h2>
                         <p className="postParagraph">{post.text}</p>

@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 const validInput = true
+const tokenHeader = new Headers
+const localToken = localStorage.getItem("token")
+tokenHeader.append("authorization", "Bearer " + localToken)
 let emailRegex = /(?:\s|^)(?![a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\S+\b(?=\s|$)/ig
 
 function filterUserInput(minLetter, maxLetter, input, regex) {
@@ -17,8 +20,19 @@ function Profil() {
     const [firstName, setFirstName] = useState("")
     const [age, setAge] = useState("")
     const [address, setAddress] = useState("")
+    const [user, setUser] = useState("")
     var url = window.location.pathname;
     var id = url.substring(url.lastIndexOf('/') + 1);
+
+    useEffect(() => {
+      fetch("http://localhost:8000/profil/" + id, {
+          headers: tokenHeader
+      })
+      .then((res) => {return res.json()})
+      .then((data => setUser(data)))
+  }, [])
+
+    console.log(user)
 
     const deleteProfil = async (e) => {
         e.preventDefault()

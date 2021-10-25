@@ -19,11 +19,28 @@ exports.createPost = async (req, res) => {
 }
 
 exports.getAllPosts = async (req, res) => {
-    console.log(req.headers)
-    await db.query("SELECT * FROM posts", [], async (err, result) => {
+    db.query("SELECT * FROM posts", [], async (err, result) => {
         if (err) {
             throw err
         }
         res.send(result)
+    })
+}
+
+exports.getOnePost = async (req, res) => {
+    db.query("SELECT * FROM posts WHERE post_id = (?)", [req.params.id], async (err, result) => {
+        if (err) {
+            throw err
+        }
+        res.send(result[0])
+    })
+}
+
+exports.deleteOnePost = async (req, res) => {
+    db.query("DELETE FROM posts WHERE post_id = (?)", [req.params.id], async (err, result) => {
+        if (err) {
+            throw err
+        }
+        res.send("Post supprimée")
     })
 }

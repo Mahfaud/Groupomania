@@ -10,6 +10,11 @@ router.post("/forum",authorize,  upload.single("file") ,postsControllers.createP
 // Route GET pour l'affichage de tous les posts'
 router.get("/forum", authorize, postsControllers.getAllPosts)
 
+// Route DELETE pour supprimer un post
+router.delete("/forum/post/:id", postsControllers.deleteOnePost)
+
+// Route GET pour afficher un post
+router.get("/forum/post/:id", postsControllers.getOnePost)
 
 
 module.exports = router;

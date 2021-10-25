@@ -53,7 +53,14 @@ header {
 }
 
 #A, .signupContainer, .profilContainer, .forumContainer, .allPostContainer {
-    background-color: darkblue;
+    background-color: rgb(27, 27, 34);
+    background-size: cover;
+}
+
+.signLogoImg {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
 }
 
 .allPostContainer {

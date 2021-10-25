@@ -4,6 +4,7 @@ import LogIn from "./components/Login";
 import SignUp from "./components/SignUp";
 import Profil from "./components/Profil";
 import Forum from "./components/Forum";
+import Post from "./components/Post";
 import "./app.css";
 
 
@@ -14,7 +15,8 @@ function App() {
         <Route exact path="/" component={LogIn}></Route>
         <Route path="/signup" component={SignUp}></Route>
         <Route path="/profil" component={Profil}></Route>
-        <Route path="/forum" component={Forum}></Route>
+        <Route exact path="/forum" component={Forum}></Route>
+        <Route path="/forum/post" component={Post}></Route>
       </Router>
     </div>
   );

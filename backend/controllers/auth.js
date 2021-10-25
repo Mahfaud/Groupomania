@@ -11,7 +11,6 @@ const jwt = require("jsonwebtoken")
 })
 
 exports.signUp = async (req, res) => {
-    
     db.query("SELECT * FROM users WHERE email = (?)", [req.body.email], async (err, result) => {
         if (err) {
             throw err
@@ -24,7 +23,7 @@ exports.signUp = async (req, res) => {
             const salt = await bcrypt.genSalt(10)
             const hashPassword = await bcrypt.hash(req.body.password, salt)
 
-            db.query("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?)", [null, req.body.email, hashPassword, req.body.name, req.body.firstName, req.body.age, req.body.address], (err, result)=> {
+            db.query("INSERT INTO users(email, password, username) VALUES(?, ?, ?)", [req.body.email, hashPassword, req.body.username], (err, result)=> {
                 if (err) {
                 console.log("Error")
                 }
