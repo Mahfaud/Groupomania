@@ -5,6 +5,7 @@ const path = require('path');
 const authRoute = require("./routes/auth")
 const profilRoute = require("./routes/profil")
 const postsRoute = require("./routes/posts")
+const comsRoute = require("./routes/coms")
 const isLoggedInRoute = require("./routes/isLoggedIn")
 const mysql = require("mysql")
 
@@ -42,6 +43,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/", authRoute)
 app.use("/", profilRoute)
 app.use("/", postsRoute)
+app.use("/", comsRoute)
 app.use("/", isLoggedInRoute)
 
 // Application qui écoute au port 8000
