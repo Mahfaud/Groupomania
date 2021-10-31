@@ -11,17 +11,16 @@ const mysql = require("mysql")
 exports.getProfil = (req, res) => {
     db.query("SELECT * FROM users WHERE user_id = (?)", [req.params.id], (err, result) => {
         if (err) {
-            throw err
+            res.status(500).send({message: "Erreur interne"})
         }
         res.send(result[0])
     })
 }
 
 exports.updateProfil = (req, res) => {
-    console.log(req.headers)
     db.query("UPDATE users SET email = (?), name = (?), firstName = (?), age = (?), address = (?) WHERE user_id = (?)", [req.body.email, req.body.name, req.body.firstName, req.body.age, req.body.address, req.params.id],(err, result) => {
         if (err) {
-            throw err
+            res.status(500).send({message: "Erreur interne"})
         }
         res.send(result[0])
     })
@@ -30,9 +29,8 @@ exports.updateProfil = (req, res) => {
 exports.deleteProfil = (req, res) => {
     db.query("DELETE users FROM users WHERE user_id = (?)", [req.params.id], (err, result) => {
         if (err) {
-            throw err
+            res.status(500).send({message: "Erreur interne"})
         }
-        console.log(result)
-        res.send("Compte supprimé")
+        res.send({message: "Compte supprimé"})
     })
 }

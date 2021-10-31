@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shrikhand&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    background: none;
+    border: none;
+    font-family: Roboto, serif;
+  }
+  
+h1 {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+button {
+    cursor: pointer;
+}
+  
+a {
+    color: inherit;
+}
+
+body {
+    background-color: rgb(165, 76, 92);
+}
+
+#root {
+    min-width: 340px;
+}
+
+.errorMessage {
+    color: red
+}
+  
+.loginContainer, .signupContainer {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.loginPresentation, .signupPresentation {
+    background-size:  contain;
+    background-image: url("../../img/backgroundimg2.jpg");
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    height: 400px;
+}
+
+.loginFormContainer, .signupFormContainer {
+    padding: 50px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.loginForm, .signupForm {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 25px;
+}
+
+.loginLogo, .signupLogo {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+}
+
+.form-floating {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.btn-lg {
+    width: 100%;
+}
+
+
+
+@media screen and (min-width: 768px) {
+    .loginFormContainer, .signupFormContainer {
+        padding: 50px 170px;
+    }
+}
+
+
+@media screen and (min-width: 1024px) {
+    .loginContainer, .signupContainer {
+        flex-direction: row;
+    }
+
+    .loginPresentation, .loginFormContainer, .signupPresentation, .signupFormContainer {
+        width: 50%;
+        height: 100%;
+    }
+
+    .loginFormContainer, .signupFormContainer {
+        padding: 100px;
+    }
+}

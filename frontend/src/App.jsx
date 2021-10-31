@@ -1,11 +1,11 @@
 import React from "react";
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import LogIn from "./components/Login";
-import SignUp from "./components/SignUp";
-import Profil from "./components/Profil";
-import Forum from "./components/Forum";
-import Post from "./components/Post";
-import "./app.css";
+import LogIn from "./components/Login/Login";
+import SignUp from "./components/SignUp/SignUp";
+import Profil from "./components/Profil/Profil";
+import Forum from "./components/Forum/Forum";
+import Post from "./components/Post/Post";
+import "./app.css"
 
 
 function App() {
