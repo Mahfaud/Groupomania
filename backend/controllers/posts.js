@@ -24,7 +24,7 @@ exports.getAllPosts = async (req, res) => {
         if (err) {
             res.status(500).send({message: "Erreur interne"})
         }
-        res.status(200).send(result)
+        res.status(200).send({posts : result, access: req.user.access})
     })
 }
 

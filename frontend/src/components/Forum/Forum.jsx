@@ -13,8 +13,13 @@ function GetPosts() {
         const response = await fetch("http://localhost:8000/forum", {
             headers: tokenHeader
         })
-        const data = await response.json()
-        setPosts(data)
+        if (response.ok) {
+            const data = await response.json()
+            setPosts(data.posts)
+        } else {
+            window.location.href = "http://localhost:3000/"
+        }
+        
     }, [])
 
     return (
@@ -43,25 +48,30 @@ function CreatePost() {
     const [text, setText] = useState() 
     const [file, setFile] = useState()
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault()
         const form = new FormData()
         form.append("text", text)
         form.append("file", file)
 
-        fetch("http://localhost:8000/forum", {
+        const response = await fetch("http://localhost:8000/forum", {
             method: "POST",
             headers: tokenHeader,
             body: form
         })
+        if (response.ok) {
+            const data = await response.json()
+            console.log(data)
+        } else {
+            window.location.href = "http://localhost:3000/"
+        }
     }
 
     return (
         <form className="forumForm">
-            
                 <textarea placeholder="Quoi de neuf ?" className="form-control forumText" name="textPost" rows="3" maxLength="1000" onChange={e => setText(e.target.value)}></textarea>
-                <input className="forumFile" type="file" name="file" id="file" onChange={e => setFile(e.target.files[0])}></input>
-                <i className="fas fa-images"></i>
+                <label for="file" class="forumFile"> <i className="fas fa-images fa-2x"></i></label>
+                <input type="file" name="file" id="file" onChange={e => setFile(e.target.files[0])}></input>
                 <button className="btn btn-lg btn-secondary forumBtn" type="submit" onClick={submit} >Créer</button>
             
         </form>

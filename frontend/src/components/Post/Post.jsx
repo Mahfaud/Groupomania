@@ -44,8 +44,13 @@ function Post() {
         const response = await fetch("http://localhost:8000/forum/post/" + id, {
             headers: tokenHeader
         })
-        const data = await response.json()
-        setPost(data)
+        if (response.ok) {
+          const data = await response.json()
+          setPost(data)
+        } else {
+          window.location.href = "http://localhost:3000/"
+        }
+        
     }, [])
 
 
@@ -71,7 +76,7 @@ function Post() {
     return (
       <div className="postBodyContainer">
         <Header></Header>
-        <div className="postBackground">
+        {posts ? <div className="postBackground">
           <div className="postContainer">
             <img className="postImg" src={posts.fileUrl}/>
             <div  className="postComsContainer" >
@@ -87,7 +92,7 @@ function Post() {
               <GetAllComs></GetAllComs>
             </div>
           </div>
-        </div>
+        </div>: null}
       </div>
     );
   }

@@ -6,25 +6,27 @@ tokenHeader.append("authorization", "Bearer " + localToken)
 
 function Header() {
 
-    const [isLog, setLog] = useState([])
+    const [isLog, setLog] = useState()
 
     const deleteLocalStorage = () => {
         localStorage.clear()
     }
     
-        useEffect(() => {
-            fetch("http://localhost:8000/isLoggedIn", {
+        useEffect( async () => {
+            try {
+                const response = await fetch("http://localhost:8000/isLoggedIn", {
                 headers: tokenHeader
             })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json()
-                } else {
-                    console.log("Non")
-                }})
-            .then((data => setLog(data)))
+            if (response.ok) {
+                const data = await response.json()
+                setLog(data)
+            } else {
+                window.location.href = "http://localhost:3000/"
+            }
+            } catch {
+                window.location.href = "http://localhost:3000/"
+            }
         }, [])
-
 
     const logOut = isLog ? <div className="headerAllLink">
         <a className="headerLink" href={"/profil/" + isLog.user_id}>

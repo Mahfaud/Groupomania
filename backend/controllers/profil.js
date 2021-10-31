@@ -13,21 +13,21 @@ exports.getProfil = (req, res) => {
         if (err) {
             res.status(500).send({message: "Erreur interne"})
         }
-        res.send(result[0])
+        res.send({posts: result[0], access: req.user.access})
     })
 }
 
 exports.updateProfil = (req, res) => {
-    db.query("UPDATE users SET email = (?), name = (?), firstName = (?), age = (?), address = (?) WHERE user_id = (?)", [req.body.email, req.body.name, req.body.firstName, req.body.age, req.body.address, req.params.id],(err, result) => {
+    db.query("UPDATE users SET email = (?), phone =(?),  name = (?), firstname = (?), age = (?), address = (?) WHERE user_id = (?)", [req.body.email, req.body.phone, req.body.name, req.body.firstname, req.body.age, req.body.address, req.user.user_id],(err, result) => {
         if (err) {
             res.status(500).send({message: "Erreur interne"})
         }
-        res.send(result[0])
+        res.send({message: "Compte modifié"})
     })
 }
 
 exports.deleteProfil = (req, res) => {
-    db.query("DELETE users FROM users WHERE user_id = (?)", [req.params.id], (err, result) => {
+    db.query("DELETE users FROM users WHERE user_id = (?)", [req.user.user_id], (err, result) => {
         if (err) {
             res.status(500).send({message: "Erreur interne"})
         }
