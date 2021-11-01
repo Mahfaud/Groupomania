@@ -10,8 +10,7 @@ const mysql = require("mysql")
 
 
 exports.createPost = async (req, res) => {
-    console.log(req.body)
-    db.query("INSERT INTO posts VALUES( (?), (?), (?), (?), (?), (?))", [null, req.body.text, "http://localhost:8000/" + req.file === "undefined" ? req.file.path : null, req.user.username, new Date().toLocaleDateString("fr-FR") , req.user.user_id], async (err, result) => {
+    db.query("INSERT INTO posts VALUES( (?), (?), (?), (?), (?), (?))", [null, req.body.text, req.file ? "http://localhost:8000/" + req.file.path : null, req.user.username, new Date().toLocaleDateString("fr-FR") , req.user.user_id], async (err, result) => {
         if (err) {
             res.status(500).send({message: "Erreur interne"})
         }

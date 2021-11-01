@@ -30,22 +30,25 @@ function LogIn() {
           email : emailPhone,
           password: password
         }
-        let response = await fetch("http://localhost:8000/", {
+        
+        try {
+            let response = await fetch("http://localhost:8000/", {
             method: "POST",
             body: JSON.stringify(userData),
             headers: {"Content-Type" : "application/json"}
-        })
-        let data = await response.json()
-        if (response.ok) {
-          localStorage.setItem("token", data.token)
-          
-          window.location.href = "http://localhost:3000/profil/" + data.user_id
-        } else {
-          setMessage(data.message)
-          validInput = true
+            })
+            let data = await response.json()
+            if (response.ok) {
+              localStorage.setItem("token", data.token)
+              
+              window.location.href = "http://localhost:3000/profil/" + data.user_id
+            } else {
+              setMessage(data.message)
+              validInput = true
+            }
+        } catch {
+          setMessage("Il y a un problème avec le serveur !")
         }
-        
-
       } else {
         setMessage("Vos champs sont erronés !")
         validInput = true

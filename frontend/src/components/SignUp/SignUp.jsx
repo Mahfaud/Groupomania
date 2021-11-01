@@ -42,13 +42,16 @@ function SignUp() {
           password: password,
           username: username
         }
-        let response = await fetch("http://localhost:8000/signup", {
+        try {
+          let response = await fetch("http://localhost:8000/signup", {
             method: "POST",
             body: JSON.stringify(userData),
             headers: {"Content-Type" : "application/json"}
         })
         let data = await response.json()
-        setMessage(data.message)
+        setMessage(data.message) }
+        catch {setMessage("Erreur de connexion au serveur")}
+        
       } else {
         e.preventDefault()
         setMessage("Recommencez, il y a eu une erreur dans vos champs")
