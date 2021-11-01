@@ -7,8 +7,8 @@ let  validInput = true
 const tokenHeader = new Headers
 const localToken = localStorage.getItem("token")
 tokenHeader.append("authorization", "Bearer " + localToken)
-let emailRegex = /(?:\s|^)(?![a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\S+\b(?=\s|$)/ig
-
+let emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+let phoneRegex = new RegExp("^[0-9]{10}$")
 function filterUserInput(minLetter, maxLetter, input, regex) {
     if (input.length > maxLetter || regex.test(input) || input.length < minLetter) {
         validInput = false
@@ -28,6 +28,7 @@ function Profil() {
     const [age, setAge] = useState("")
     const [address, setAddress] = useState("")
     const [access, setAccess] = useState("")
+    const [message, setMessage] = useState("")
 
     var url = window.location.pathname;
     var id = url.substring(url.lastIndexOf('/') + 1);
@@ -57,8 +58,13 @@ function Profil() {
     }
 
     const submit = async (e) => {
+        validInput = true
 
-        filterUserInput(6, 100, email , emailRegex)
+        filterUserInput(3, 100, username , /A-zÀ-ÿ/g)
+        filterUserInput(3, 100, firstName , /A-zÀ-ÿ/g)
+        filterUserInput(3, 100, name , /A-zÀ-ÿ/g)
+        filterUserInput(2, 3, age , /A-zÀ-ÿ/g)
+        filterUserInput(6, 100, address , /A-zÀ-ÿ/g)
   
         if (validInput) {
           e.preventDefault()
@@ -78,12 +84,14 @@ function Profil() {
               headers: {"Content-Type" : "application/json", "Authorization" : "Bearer " + localToken}
           })
           if (response.ok) {
+            const data = await response.json()
+            setMessage(data.message)
             window.location.href = "http://localhost:3000/profil/" + id
           }
           
         } else {
           e.preventDefault()
-          console.log("Bad Input")
+          setMessage("Recommencez, il y a eu une erreur dans vos champs")
         }
       }
   
@@ -96,6 +104,7 @@ function Profil() {
           {user ? <div className="profilContainer">
             <div className="profilInfoContainer">
               <h1 className="h3 mb-3 fw-normal">Votre compte</h1>
+              <p >{message}</p>
               <div className="form-group">
                 <label htmlFor="Username">Pseudonyme</label>
                 <input type="text" className="form-control"  placeholder={user.username} onChange={e => setUsername(e.target.value)} />

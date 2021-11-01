@@ -27,7 +27,7 @@ exports.updateProfil = (req, res) => {
 }
 
 exports.deleteProfil = (req, res) => {
-    db.query("DELETE users FROM users WHERE user_id = (?)", [req.user.user_id], (err, result) => {
+    db.query("DELETE users FROM users WHERE user_id = (?)", [req.params.id], (err, result) => {
         if (err) {
             res.status(500).send({message: "Erreur interne"})
         }

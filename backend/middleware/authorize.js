@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
         if (err) {
             return res.status(400).send({message: "Vous n'avez pas accès à ces données"})
         }
-        if (req.params.id === String(user.user_id) || user.role === "moderator") {
+        if (req.params.id === String(user.user_id) || user.role === "moderator" || req.params.userid === String(user.user_id)) {
             user.access = true
             req.user = user
             next()

@@ -22,10 +22,12 @@ function GetPosts() {
         
     }, [])
 
+    console.log(posts)
+
     return (
         <div className="forumAllPostContainer">
             <div className="forumAllPost"> {posts.map(post => 
-                <a className="forumOnePost" href={"/forum/post/" + post.post_id}>
+                <a className="forumOnePost" href={"/forum/post/" + post.user_id + "/" + post.post_id}>
                     <div className="forumPostProfil">
                         <div> 
                             <h2 className="forumPostUser">{post.username}</h2>
@@ -33,7 +35,7 @@ function GetPosts() {
                     </div>
                     <div className="forumTextContainer">
                         <p className="forumPostText">{post.text}</p>
-                        <img className="forumPostImg" src={post.fileUrl}/>
+                        {post.fileUrl ?<img className="forumPostImg" src={post.fileUrl}/> : null }
                     </div>
                     <p className="forumPostDate">Post créé le {post.date}</p>
                 </a>)}
@@ -62,6 +64,7 @@ function CreatePost() {
         if (response.ok) {
             const data = await response.json()
             console.log(data)
+            window.location.href = "http://localhost:3000/forum"
         } else {
             window.location.href = "http://localhost:3000/"
         }
@@ -70,7 +73,7 @@ function CreatePost() {
     return (
         <form className="forumForm">
                 <textarea placeholder="Quoi de neuf ?" className="form-control forumText" name="textPost" rows="3" maxLength="1000" onChange={e => setText(e.target.value)}></textarea>
-                <label for="file" class="forumFile"> <i className="fas fa-images fa-2x"></i></label>
+                <label htmlFor="file" className="forumFile"> <i className="fas fa-images fa-2x"></i></label>
                 <input type="file" name="file" id="file" onChange={e => setFile(e.target.files[0])}></input>
                 <button className="btn btn-lg btn-secondary forumBtn" type="submit" onClick={submit} >Créer</button>
             

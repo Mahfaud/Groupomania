@@ -8,8 +8,7 @@ const tokenHeader = new Headers
 tokenHeader.append("authorization", "Bearer " + localToken)
 var url = window.location.pathname;
 var id = url.substring(url.lastIndexOf('/') + 1);
-var randomBoolean = true
-
+var urlUserId = url.split("/")[3]
 
 
 function GetAllComs () {
@@ -17,7 +16,7 @@ function GetAllComs () {
   const [coms, setComs] = useState([])
 
     useEffect( async () => {
-        const response = await fetch("http://localhost:8000/forum/post/" + id + "/coms", {
+        const response = await fetch("http://localhost:8000/forum/post/" + urlUserId + "/" + id + "/coms", {
             headers: tokenHeader
         })
         const data = await response.json()
@@ -39,14 +38,16 @@ function Post() {
 
   const [posts, setPost] = useState("")
   const [text, setText] = useState() 
+  const [access, setAccess] = useState()
 
     useEffect( async () => {
-        const response = await fetch("http://localhost:8000/forum/post/" + id, {
+        const response = await fetch("http://localhost:8000/forum/post/"+ urlUserId + "/" + id, {
             headers: tokenHeader
         })
         if (response.ok) {
           const data = await response.json()
-          setPost(data)
+          setPost(data.post)
+          setAccess(data.access)
         } else {
           window.location.href = "http://localhost:3000/"
         }
@@ -54,31 +55,38 @@ function Post() {
     }, [])
 
 
-    const submit = (e) => {
+    const submit = async (e) => {
       e.preventDefault()
       const coms = {text: text}
-      fetch("http://localhost:8000/forum/post/" + id, {
+      const response = await fetch("http://localhost:8000/forum/post/"+ urlUserId + "/" + id, {
           method: "POST",
           headers: {"Content-Type" : "application/json", "Authorization" : "Bearer " + localToken},
           body: JSON.stringify(coms)
       })
+      if (response.ok) {
+        window.location.href = "http://localhost:3000/forum/post/" + id
+      }
   }
 
     const deletePost = async (e) => {
         e.preventDefault()
-        fetch('http://localhost:8000/forum/post/' + id , {
+        const response = await fetch('http://localhost:8000/forum/post/'+ urlUserId + "/" + id , {
           headers: tokenHeader,
           method: "DELETE",
-          })}
+          })
+          if (response.ok) {
+            window.location.href = "http://localhost:3000/forum"
+          }
+        }
 
-    const btnIf = randomBoolean ? <button className="btn btn-lg btn-danger postDeletePost" onClick={deletePost} >X</button> : null
+    const btnIf = access ? <button className="btn btn-lg btn-danger postDeletePost" onClick={deletePost} >X</button> : null
 
     return (
       <div className="postBodyContainer">
         <Header></Header>
         {posts ? <div className="postBackground">
-          <div className="postContainer">
-            <img className="postImg" src={posts.fileUrl}/>
+          <div className={posts.fileUrl ? "postContainer" : "postContainerMessage"}>
+            {posts.fileUrl ? <img className="postImg" src={posts.fileUrl}/> : null}
             <div  className="postComsContainer" >
               <div className="postCreator">
                 <p>{posts.text}</p>
